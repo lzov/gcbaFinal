@@ -19,8 +19,6 @@ app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
 
-
-
 app.use((req, res) => res.status(404).json({error: 'no existe la ruta'}));
 
 app.use((err, req, res, next ) => {
