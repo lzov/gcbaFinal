@@ -29,8 +29,8 @@ Este proyecto es una API RESTful para gestionar productos. Permite realizar oper
 1. Cloná el repositorio:
 
 ```bash
-git clone https://github.com/<tu-usuario>/api-productos.git
-cd api-productos
+git clone https://github.com/<tu-usuario>/gcbaFinal.git
+cd gcbaFinal
 ```
 
 2. Instalá las dependencias:
