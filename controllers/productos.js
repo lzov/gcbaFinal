@@ -2,10 +2,11 @@ const responder = require('../services/responder');
 
 let productos = [];
 
-exports.getAll = (res, req) => {
+exports.getAll = (req, res) => {
   responder.exito(res, productos, "Lista de productos");
 };
-exports.getById = (res, req) => {
+
+exports.getById = (req, res) => {
   const producto = productos.find((x) => x.id === +req.params.id);
 
   if (!producto) {
@@ -19,6 +20,7 @@ exports.getById = (res, req) => {
 
   responder.exito(res, producto, "Producto encontrado");
 };
+
 exports.create = (req, res) => {
   const { nombre, precio, stock } = req.body;
 
@@ -33,6 +35,7 @@ exports.create = (req, res) => {
 
   responder.exito(res, nuevoProducto, "Producto creado", 201);
 };
+
 exports.update = (req, res) => {
   const id = +req.params.id;
   const idx = productos.findIndex((p) => p.id === id);
@@ -59,7 +62,7 @@ exports.update = (req, res) => {
 
 exports.remove = (req, res) => {
   const id = +req.params.id;
-  const idx = productos((p) => p.id === id);
+  const idx = productos.findIndex((p) => p.id === id);
 
   if (idx === -1) {
     return responder.error(
