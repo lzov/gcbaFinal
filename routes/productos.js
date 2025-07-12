@@ -1,8 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
-const productosController = require('.../controllers/productos');
-const validarProducto = require('../services/validarProducto');
+const productosController = require('../controllers/productos');
+const validarProducto = require('../services/validarProductos');
 
 
 router.get('/', productosController.getAll);
@@ -12,5 +12,5 @@ router.put('/:id', productosController.update);
 router.delete('/:id', productosController.remove);
 
 
-module.express = router;
+module.exports = router;
 
