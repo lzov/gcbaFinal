@@ -45,7 +45,7 @@ npm install
 node server.js
 ```
 
-El servidor escuchará en `http://localhost:3000`.
+El servidor estará en `http://localhost:3000`.
 
 ---
 
@@ -117,10 +117,11 @@ Si los datos son inválidos, se devuelve una respuesta con formato:
 }
 ```
 
-## 🧪 Probalo con Postman o curl
+## 🧪 Probalo con curl*
 
 ```bash
 curl -X POST http://localhost:3000/productos \
   -H "Content-Type: application/json" \
   -d '{"nombre":"Monitor", "precio": 10000}'
 ```
+[*] después debería probar Postman y otras herramientas.
