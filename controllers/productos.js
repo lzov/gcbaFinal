@@ -1,12 +1,13 @@
-const responder = require('../services/responder');
+const responder = require("../services/responder");
+const service = require("../services/productosService");
 
-let productos = [];
-
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
+  const productos = await service.leerProductos();
   responder.exito(res, productos, "Lista de productos");
 };
 
-exports.getById = (req, res) => {
+exports.getById = async (req, res) => {
+  const productos = await service.leerProductos();
   const producto = productos.find((x) => x.id === +req.params.id);
 
   if (!producto) {
@@ -17,26 +18,29 @@ exports.getById = (req, res) => {
       404
     );
   }
-
   responder.exito(res, producto, "Producto encontrado");
 };
 
-exports.create = (req, res) => {
-  const { nombre, precio, stock } = req.body;
+exports.create = async (req, res) => {
+  const productos = await service.leerProductos();
+  const { nombre, precio, descripcion, stock } = req.body;
 
   const nuevoProducto = {
     id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1,
     nombre,
     precio,
+    descripcion,
     stock: stock || 0,
   };
 
   productos.push(nuevoProducto);
+  await service.guardarProductos(productos);
 
   responder.exito(res, nuevoProducto, "Producto creado", 201);
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
+  const productos = await service.leerProductos();
   const id = +req.params.id;
   const idx = productos.findIndex((p) => p.id === id);
 
@@ -49,18 +53,18 @@ exports.update = (req, res) => {
     );
   }
 
-  const productoActual = productos[idx];
-
   productos[idx] = {
-    ...productoActual,
+    ...productos[idx],
     ...req.body,
-    id: productoActual.id, // Evito sobreescribir id
+    id: productos[idx].id,
   };
 
+  await service.guardarProductos(productos);
   responder.exito(res, productos[idx], "Producto actualizado");
 };
 
-exports.remove = (req, res) => {
+exports.remove = async (req, res) => {
+  const productos = await service.leerProductos();
   const id = +req.params.id;
   const idx = productos.findIndex((p) => p.id === id);
 
@@ -74,6 +78,7 @@ exports.remove = (req, res) => {
   }
 
   const [eliminado] = productos.splice(idx, 1);
+  await service.guardarProductos(productos);
 
   responder.exito(res, eliminado, "Producto eliminado");
 };
