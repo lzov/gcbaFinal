@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
 const rutaArchivo = path.join(__dirname, '../data/productos.json');
 
 exports.leerProductos = async () => {
     try {
-        const data = await fs.promises.readFile('../data/productos.json', 'utf-8');
+        const data = await fs.readFile(rutaArchivo, 'utf-8');
         return JSON.parse(data);
     } catch (err) {
         return [];

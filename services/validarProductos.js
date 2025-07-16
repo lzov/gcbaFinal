@@ -1,5 +1,5 @@
 module.exports = function validarProducto(req, res, next) {
-  const { nombre, precio, stock } = req.body;
+  const { nombre, precio,descripcion, stock } = req.body;
 
   const errores = [];
 
@@ -11,7 +11,8 @@ module.exports = function validarProducto(req, res, next) {
   if (nombre && typeof nombre !== 'string') errores.push('El nombre debe ser un string');
   if (precio !== undefined && typeof precio !== 'number') errores.push('El precio debe ser un número');
   if (stock !== undefined && typeof stock !== 'number') errores.push('El stock debe ser un número');
-
+  if (descripcion !== undefined && typeof descripcion !== 'string') errores.push('La descripción debe ser un string');
+  
   // Validar valores mínimos
   if (typeof precio === 'number' && precio < 0) errores.push('El precio no puede ser negativo');
   if (typeof stock === 'number' && stock < 0) errores.push('El stock no puede ser negativo');
