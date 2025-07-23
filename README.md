@@ -1,74 +1,63 @@
 # API REST - Productos (Node.js + Express + Firebase)
 
-API RESTful para gestionar productos, con autenticación JWT y persistencia en Firebase Firestore.
+API RESTful para gestión de productos, autenticación JWT y persistencia en Firebase Firestore.
 
-## 🚀 Tecnologías utilizadas
-
-- Node.js
-- Express.js
-- Firebase Firestore
-- JSON Web Tokens (JWT)
-- JavaScript (ES6+)
-- Postman (para pruebas)
+---
 
 ## 📁 Estructura del proyecto
 
 ```
-.
+gcbaFinal/
 ├── config/
-│   ├── authKey.json         # Credenciales de Firebase
-│   └── firebase.js          # Configuración de Firebase
+│   ├── authKey.json               # Credenciales de Firebase
+│   └── firebase.js                # Configuración de Firebase
 ├── controllers/
-│   ├── auth.controller.js   # Login y generación de JWT
-│   └── products.controller.js
+│   ├── auth.controller.js         # Lógica de login y JWT
+│   └── products.controller.js     # Lógica de negocio de productos
 ├── data/
-│   └── seed.json            # Datos de ejemplo (no usados en producción)
+│   └── seed.json                  # Datos de ejemplo
 ├── middlewares/
-│   └── auth.middleware.js   # Middleware de autenticación JWT
+│   └── auth.middleware.js         # Middleware de autenticación JWT
 ├── models/
-│   └── product.model.js     # Acceso a Firestore
+│   └── product.model.js           # Acceso a productos en Firestore
 ├── routes/
-│   ├── auth.routes.js       # Ruta de login
-│   └── products.routes.js   # Rutas CRUD de productos
+│   ├── auth.routes.js             # Rutas de autenticación
+│   └── products.routes.js         # Rutas CRUD de productos
 ├── services/
-│   ├── products.services.js
-│   ├── responder.js         # Formato uniforme de respuestas
-│   └── validarProducto.js   # Validación de datos de producto
-├── server.js                # Punto de entrada de la aplicación
-└── package.json
+│   ├── products.services.js       # Lógica de servicios de productos
+│   ├── responder.js               # Helpers para respuestas uniformes
+│   ├── validarProducto.helper.js  # Lógica de validación de productos (helper)
+│   └── validarProducto.js         # Middleware de validación de productos
+├── .env                           # Variables de entorno
+├── .gitignore
+├── package.json
+├── README.md
+└── server.js                      # Punto de entrada de la aplicación
 ```
 
-## 📦 Instalación
+---
 
-1. Cloná el repositorio:
+## 🛡️ Validación de productos
 
-```bash
-git clone https://github.com/lzov/gcbaFinal.git
-cd gcbaFinal
+Los productos deben tener los siguientes campos:
+
+- `sku` (string o número, requerido)
+- `Desc` (string, requerido)
+- `Marca` (string, requerido)
+- `Modelo` (string, requerido)
+- `Precio` (número, requerido)
+- `Stock` (número, requerido)
+
+Si los datos son inválidos, la API responde con:
+
+```json
+{
+  "errores": [
+    "El campo \"Desc\" es requerido y debe ser un string",
+    "El campo \"Precio\" es requerido y debe ser un número"
+  ]
+}
 ```
-
-2. Instalá las dependencias:
-
-```bash
-npm install
-```
-
-3. Configurá las variables de entorno en un archivo `.env`:
-
-```
-JWT_SECRET=tu_clave_secreta
-PORT=3000
-```
-
-4. Asegurate de tener el archivo `config/authKey.json` con las credenciales de Firebase.
-
-5. Ejecutá el servidor:
-
-```bash
-npm start
-```
-
-El servidor estará en `http://localhost:3000`.
 
 ---
 
@@ -102,7 +91,7 @@ POST /api/auth/login
 
 ### Productos
 
-> Todas las rutas protegidas requieren el header:  
+> Las rutas POST, PUT y DELETE requieren el header:  
 > `Authorization: Bearer <token>`
 
 #### Obtener todos los productos
@@ -115,50 +104,31 @@ GET /api/products
 GET /api/products/:id
 ```
 
-#### Crear un producto (protegido)
+#### Crear un producto (protegido y validado)
 ```
 POST /api/products
 ```
 **Body JSON:**
 ```json
 {
-  "nombre": "Teclado",
-  "precio": 3000,
-  "stock": 10
+  "sku": "0016",
+  "Desc": "Reloj digital resistente al agua",
+  "Marca": "Casio",
+  "Modelo": "G-Shock",
+  "Precio": 120,
+  "Stock": 15
 }
 ```
 
-#### Actualizar producto (protegido)
+#### Actualizar producto (protegido y validado)
 ```
 PUT /api/products/:id
 ```
-**Body JSON:**
-```json
-{
-  "nombre": "Teclado mecánico",
-  "precio": 3500
-}
-```
+**Body JSON:** igual que el de creación.
 
 #### Eliminar producto (protegido)
 ```
 DELETE /api/products/:id
-```
-
----
-
-## 🛡️ Validación
-
-Los campos `nombre` (string) y `precio` (number) son requeridos.  
-Si los datos son inválidos, se devuelve una respuesta con formato:
-
-```json
-{
-  "errores": [
-    "El nombre debe ser un string",
-    "El precio debe ser un número"
-  ]
-}
 ```
 
 ---
@@ -181,11 +151,10 @@ curl -X POST http://localhost:3000/api/products \
 
 > Cambia `<token>` por el JWT obtenido en el login.
 
-
 ---
 
 ## ⚠️ Notas
 
 - Los productos se almacenan en Firebase Firestore.
 - El login es solo de ejemplo, con usuario y contraseña fijos.
-- El archivo `data/seed.json` es solo de referencia, no se utiliza en producción.
+- El archivo `data/seed.json` es solo de referencia, no se
