@@ -1,5 +1,6 @@
-const express = require('express');
-const responder = require('./services/responder');
+import express from 'express';
+import { error as responderError } from './services/responder.js';
+import productsRouter from './routes/products.routes.js';
 
 const app = express();
 
@@ -11,8 +12,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const productosRouter = require('./routes/productos');
-app.use('/productos', productosRouter);
+// Rutas
+app.use('/api/products', productsRouter);
 
 app.get('/status', (req, res) => {
   res.json({ status: 'OK', time: Date.now() });
@@ -28,9 +29,10 @@ app.use((req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  responder.error(res, [err.message], 'Error interno del servidor', 500);
+  responderError(res, [err.message], 'Error interno del servidor', 500);
 });
 
+// Puerto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
