@@ -21,3 +21,15 @@ export const deleteProduct = async (id) => {
     await productsCollection.doc(id).delete();
 }
 
+export const updateProduct = async (id, updatedData) => {
+  const docRef = productsCollection.doc(id);
+  const doc = await docRef.get();
+
+  if (!doc.exists) throw new Error("Producto no encontrado");
+
+  await docRef.update(updatedData);
+  const updatedDoc = await docRef.get();
+
+  return { id: updatedDoc.id, ...updatedDoc.data() };
+};
+
