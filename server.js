@@ -1,6 +1,7 @@
 import express from 'express';
 import { error as responderError } from './services/responder.js';
 import productsRouter from './routes/products.routes.js';
+import authRouter from './routes/auth.routes.js';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 
 // Rutas
 app.use('/api/products', productsRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/status', (req, res) => {
   res.json({ status: 'OK', time: Date.now() });
