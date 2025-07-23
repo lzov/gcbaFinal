@@ -169,8 +169,18 @@ Si los datos son inválidos, se devuelve una respuesta con formato:
 curl -X POST http://localhost:3000/api/products \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
-  -d '{"nombre":"Monitor", "precio": 10000}'
+  -d '{
+    "sku": "0016",
+    "Desc": "Reloj digital resistente al agua",
+    "Marca": "Casio",
+    "Modelo": "G-Shock",
+    "Precio": 120,
+    "Stock": 15
+  }'
 ```
+
+> Cambia `<token>` por el JWT obtenido en el login.
+
 
 ---
 
