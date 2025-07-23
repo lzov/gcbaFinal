@@ -4,6 +4,7 @@ import { exito, error } from '../services/responder.js';
 export const getAll = async (req, res) => {
   try {
     const productos = await ProductService.getAll();
+    console.log('Productos en controller:', productos);
     exito(res, productos, 'Productos obtenidos');
   } catch (err) {
     error(res, null, 'Error al obtener productos', 500);

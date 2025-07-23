@@ -1,8 +1,12 @@
 import { productsCollection } from "../config/firebase.js";
 
 export const getAll = async () => {
+  console.log('Collection:', productsCollection.path); // Muestra el path de la colección
   const snapshot = await productsCollection.get();
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  console.log('Documents found:', snapshot.size); // Muestra cantidad de documentos
+  const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  console.log('Mapped docs:', docs); // Muestra los documentos
+  return docs;
 };
 
 export const getById = async (id) => {
