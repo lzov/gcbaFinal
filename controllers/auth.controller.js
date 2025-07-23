@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { exito, error } from "../services/responder";
+import { exito, error } from "../services/responder.js";
 
 const usuarios = [{ id: 1, email: "admin@example.com", password: "1234" }];
 

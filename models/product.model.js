@@ -1,4 +1,4 @@
-import { productsCollection } from "../config/firebase";
+import { productsCollection } from "../config/firebase.js";
 
 export const getAllProducts = async () => {
   const snapshot = await productsCollection.get();

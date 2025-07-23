@@ -1,25 +1,39 @@
-# API REST - Productos (Node.js + Express)
+# API REST - Productos (Node.js + Express + Firebase)
 
-Este proyecto es una API RESTful para gestionar productos. Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre un conjunto de productos almacenados en memoria (por ahora).
+API RESTful para gestionar productos, con autenticación JWT y persistencia en Firebase Firestore.
 
 ## 🚀 Tecnologías utilizadas
 
 - Node.js
 - Express.js
-- Postman (para pruebas)
+- Firebase Firestore
+- JSON Web Tokens (JWT)
 - JavaScript (ES6+)
+- Postman (para pruebas)
 
 ## 📁 Estructura del proyecto
 
 ```
 .
+├── config/
+│   ├── authKey.json         # Credenciales de Firebase
+│   └── firebase.js          # Configuración de Firebase
 ├── controllers/
-│   └── productos.js         # Lógica de negocio CRUD
+│   ├── auth.controller.js   # Login y generación de JWT
+│   └── products.controller.js
+├── data/
+│   └── seed.json            # Datos de ejemplo (no usados en producción)
+├── middlewares/
+│   └── auth.middleware.js   # Middleware de autenticación JWT
+├── models/
+│   └── product.model.js     # Acceso a Firestore
 ├── routes/
-│   └── productos.js         # Rutas para productos
+│   ├── auth.routes.js       # Ruta de login
+│   └── products.routes.js   # Rutas CRUD de productos
 ├── services/
+│   ├── products.services.js
 │   ├── responder.js         # Formato uniforme de respuestas
-│   └── validarProducto.js   # Validación básica de datos
+│   └── validarProducto.js   # Validación de datos de producto
 ├── server.js                # Punto de entrada de la aplicación
 └── package.json
 ```
@@ -29,7 +43,7 @@ Este proyecto es una API RESTful para gestionar productos. Permite realizar oper
 1. Cloná el repositorio:
 
 ```bash
-git clone https://github.com/<tu-usuario>/gcbaFinal.git
+git clone https://github.com/lzov/gcbaFinal.git
 cd gcbaFinal
 ```
 
@@ -39,10 +53,19 @@ cd gcbaFinal
 npm install
 ```
 
-3. Ejecutá el servidor:
+3. Configurá las variables de entorno en un archivo `.env`:
+
+```
+JWT_SECRET=tu_clave_secreta
+PORT=3000
+```
+
+4. Asegurate de tener el archivo `config/authKey.json` con las credenciales de Firebase.
+
+5. Ejecutá el servidor:
 
 ```bash
-node server.js
+npm start
 ```
 
 El servidor estará en `http://localhost:3000`.
@@ -51,9 +74,50 @@ El servidor estará en `http://localhost:3000`.
 
 ## 🔀 Endpoints disponibles
 
-### 📥 Crear un producto
+### Autenticación
+
+#### Login
 ```
-POST /productos
+POST /api/auth/login
+```
+**Body JSON:**
+```json
+{
+  "email": "admin@example.com",
+  "password": "1234"
+}
+```
+**Respuesta:**
+```json
+{
+  "status": "success",
+  "mensaje": "Login exitoso",
+  "datos": {
+    "token": "..."
+  }
+}
+```
+
+---
+
+### Productos
+
+> Todas las rutas protegidas requieren el header:  
+> `Authorization: Bearer <token>`
+
+#### Obtener todos los productos
+```
+GET /api/products
+```
+
+#### Obtener producto por ID
+```
+GET /api/products/:id
+```
+
+#### Crear un producto (protegido)
+```
+POST /api/products
 ```
 **Body JSON:**
 ```json
@@ -64,25 +128,9 @@ POST /productos
 }
 ```
 
----
-
-### 📄 Obtener todos los productos
+#### Actualizar producto (protegido)
 ```
-GET /productos
-```
-
----
-
-### 🔍 Obtener producto por ID
-```
-GET /productos/:id
-```
-
----
-
-### ✏️ Actualizar producto
-```
-PUT /productos/:id
+PUT /api/products/:id
 ```
 **Body JSON:**
 ```json
@@ -92,11 +140,9 @@ PUT /productos/:id
 }
 ```
 
----
-
-### ❌ Eliminar producto
+#### Eliminar producto (protegido)
 ```
-DELETE /productos/:id
+DELETE /api/products/:id
 ```
 
 ---
@@ -108,8 +154,6 @@ Si los datos son inválidos, se devuelve una respuesta con formato:
 
 ```json
 {
-  "status": "error",
-  "mensaje": "Datos inválidos",
   "errores": [
     "El nombre debe ser un string",
     "El precio debe ser un número"
@@ -117,11 +161,21 @@ Si los datos son inválidos, se devuelve una respuesta con formato:
 }
 ```
 
-## 🧪 Probalo con curl*
+---
+
+## 🧪 Prueba rápida con curl
 
 ```bash
-curl -X POST http://localhost:3000/productos \
+curl -X POST http://localhost:3000/api/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
   -d '{"nombre":"Monitor", "precio": 10000}'
 ```
-[*] después debería probar Postman y otras herramientas.
+
+---
+
+## ⚠️ Notas
+
+- Los productos se almacenan en Firebase Firestore.
+- El login es solo de ejemplo, con usuario y contraseña fijos.
+- El archivo `data/seed.json` es solo de referencia, no se utiliza en producción.
