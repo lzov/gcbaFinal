@@ -1,68 +1,33 @@
+// Configuración de Firebase (reemplazá por la tuya)
+const firebaseConfig = {
 
-// Utilidad para construir la query string según los filtros seleccionados
-function buildQueryString(filters) {
-  const params = new URLSearchParams();
-  if (filters.marca) params.append('marca', filters.marca);
-  if (filters.desc) params.append('desc', filters.desc);
-  if (filters.modelo) params.append('modelo', filters.modelo);
-  if (filters.minPrecio) params.append('minPrecio', filters.minPrecio);
-  if (filters.maxPrecio) params.append('maxPrecio', filters.maxPrecio);
-  if (filters.orden) params.append('orden', filters.orden);
-  return params.toString() ? '?' + params.toString() : '';
-}
+  apiKey: "AIzaSyAs02lm8kPhSc5kb1CvIOAOcgmmYi36fWg",
 
-async function cargarProductos(filters = {}) {
-  const lista = document.getElementById('productos-lista');
-  const query = buildQueryString(filters);
-  try {
-    const res = await fetch('https://gcbafinal-ecommerce.onrender.com/api/products' + query, {
-      headers: { 'Accept': 'application/json' },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-    if (json.status !== 'success' || !Array.isArray(json.datos)) {
-      throw new Error('Formato inesperado de API');
-    }
-    if (json.datos.length === 0) {
-      lista.innerHTML = '<li>No hay productos disponibles</li>';
-      return;
-    }
-    lista.innerHTML = '';
-    json.datos.forEach(p => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <strong>${p.Desc}</strong><br>
-        Marca: ${p.Marca} | Modelo: ${p.Modelo}<br>
-        SKU: ${p.sku} — Precio: $${p.Precio} — Stock: ${p.Stock}
-      `;
-      lista.appendChild(li);
-    });
-  } catch (err) {
-    console.error(err);
-    lista.innerHTML = `<li style="color: red;">Error: ${err.message}</li>`;
-  }
-}
+  authDomain: "ecommerce-gcba.firebaseapp.com",
 
-document.addEventListener('DOMContentLoaded', () => {
-  cargarProductos();
-  const form = document.getElementById('filtros-form');
-  const resetBtn = document.getElementById('reset-filtros');
+  projectId: "ecommerce-gcba",
 
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const filters = {};
-      for (const [key, value] of data.entries()) {
-        if (value && value !== '') filters[key] = value;
-      }
-      cargarProductos(filters);
-    });
-  }
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      form.reset();
-      cargarProductos();
-    });
-  }
-});
+  storageBucket: "ecommerce-gcba.firebasestorage.app",
+
+  messagingSenderId: "927408098496",
+
+  appId: "1:927408098496:web:16e960253f72b2715f7125"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// Login anónimo automático
+firebase.auth().signInAnonymously()
+  .then(() => {
+    return firebase.auth().currentUser.getIdToken();
+  })
+  .then(token => {
+    // Usá este token en tus requests protegidos
+    console.log('Token JWT anónimo:', token);
+    // Ejemplo de uso:
+    // fetch('/api/products', { headers: { Authorization: `Bearer ${token}` } })
+  })
+  .catch(error => {
+    console.error(error);
+  });

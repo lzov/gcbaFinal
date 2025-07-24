@@ -1,4 +1,4 @@
-// services/validarProducto.helper.js
+// Helper de validación: chequea que los datos del producto cumplan el formato requerido
 export function validarProducto(producto) {
   const errores = [];
 

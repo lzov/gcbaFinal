@@ -1,4 +1,6 @@
-// responder.js
+// Helpers para respuestas uniformes de la API
+// exito: respuesta exitosa
+// error: respuesta de error
 export function exito(res, datos, mensaje = 'OK', status = 200) {
   return res.status(status).json({
     status: 'success',
