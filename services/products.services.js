@@ -33,6 +33,13 @@ export const getAll = async (query = {}) => {
   if (query.orden === 'desc') {
     productos = productos.sort((a, b) => b.Precio - a.Precio);
   }
+  // Paginación en memoria
+  const limit = Number(query.limit) > 0 ? Number(query.limit) : null;
+  const page = Number(query.page) > 0 ? Number(query.page) : 1;
+  if (limit) {
+    const offset = (page - 1) * limit;
+    productos = productos.slice(offset, offset + limit);
+  }
   return productos;
 };
 
