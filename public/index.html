@@ -7,15 +7,22 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!--
+    SPA de ejemplo para la API RESTful de Productos.
+    Estructura pensada para facilitar pruebas y documentación visual.
+    Secciones principales: endpoints públicos, autenticación y reglas de uso.
+  -->
   <div class="container">
     <h1>📘 API RESTful de Productos</h1>
     <p>Bienvenido a la documentación inicial de esta API. Abajo encontrarás rutas útiles para probarla.</p>
 
+    <!-- URL base de la API -->
     <div class="base-url">
       <strong>Base URL:</strong> 
       <code>https://gcbafinal-ecommerce.onrender.com</code>
     </div>
 
+    <!-- Ejemplos de endpoints públicos y filtros -->
     <section>
       <h2>🔗 Endpoints públicos</h2>
       <ul>
@@ -61,42 +68,33 @@
         </li>
       </ul>
       <hr>
-      <h3>🔎 Probar filtros desde el navegador</h3>
-      <form id="filtros-form">
-        <label>Marca: <input type="text" name="marca" placeholder="Ej: Garmin" /></label>
-        <label>Descripción: <input type="text" name="desc" placeholder="Ej: deportivo" /></label>
-        <label>Modelo: <input type="text" name="modelo" placeholder="Ej: Forerunner" /></label>
-        <label>Precio mínimo: <input type="number" name="minPrecio" min="0" /></label>
-        <label>Precio máximo: <input type="number" name="maxPrecio" min="0" /></label>
-        <label>Orden:
-          <select name="orden">
-            <option value="">--</option>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </select>
-        </label>
-        <button type="submit">Buscar</button>
-        <button type="button" id="reset-filtros">Limpiar</button>
-      </form>
-      <ul id="productos-lista">
-        <li>Cargando productos...</li>
+      <hr>
+      <!-- Ejemplo de paginación usando parámetros limit y page -->
+      <h3>🗂️ Ejemplo de paginación</h3>
+      <ul>
+        <li>
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?limit=3&page=2" target="_blank">
+            <code>GET</code> <code>/api/products?limit=3&page=2</code> — Página 2, 3 productos por página
+          </a>
+        </li>
       </ul>
     </section>
 
+    <!-- Sección de autenticación: login y perfil protegido -->
     <section>
       <h2>🔐 Autenticación</h2>
       <ul>
         <li><code>POST</code> <code>/api/auth/login</code> <em>(Firebase Auth)</em></li>
         <li><code>GET</code> <code>/api/auth/profile</code> <em>(requiere token)</em></li>
       </ul>
-      <p style="font-size:0.98em;color:#666;margin-top:0.5em;">La autenticación utiliza Firebase Auth. Si deseas implementar registro de usuarios o creación anónima, deberás agregarlo en el backend y reflejarlo aquí.</p>
     </section>
 
+    <!-- Reglas y advertencias de uso de la API -->
     <section class="alerta">
-      <h2>⚠️ Reglas importantes</h2>
+      <h2>Nota: </h2>
       <ul>
         <li>No usar <code>?q</code> junto con filtros de precio.</li>
-        <li>Se priorizan los filtros de precio sobre otros parámetros.</li>
+        <li>Si se filtra por precio, este tiene prioridad sobre otros parámetros.</li>
       </ul>
     </section>
   </div>
