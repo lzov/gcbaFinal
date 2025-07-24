@@ -25,23 +25,28 @@
           </a>
         </li>
         <li>
-          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?nombre=Reloj" target="_blank">
-            <code>GET</code> <code>/api/products?nombre=Reloj</code> — Buscar por nombre
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?marca=Garmin" target="_blank">
+            <code>GET</code> <code>/api/products?marca=Garmin</code> — Filtrar por marca
           </a>
         </li>
         <li>
-          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?categoria=Deportivo" target="_blank">
-            <code>GET</code> <code>/api/products?categoria=Deportivo</code> — Filtrar por categoría
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?desc=deportivo" target="_blank">
+            <code>GET</code> <code>/api/products?desc=deportivo</code> — Buscar por descripción
           </a>
         </li>
         <li>
-          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?minPrecio=5000" target="_blank">
-            <code>GET</code> <code>/api/products?minPrecio=5000</code> — Precio mínimo
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?modelo=Forerunner" target="_blank">
+            <code>GET</code> <code>/api/products?modelo=Forerunner</code> — Filtrar por modelo
           </a>
         </li>
         <li>
-          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?maxPrecio=20000" target="_blank">
-            <code>GET</code> <code>/api/products?maxPrecio=20000</code> — Precio máximo
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?minPrecio=200" target="_blank">
+            <code>GET</code> <code>/api/products?minPrecio=200</code> — Precio mínimo
+          </a>
+        </li>
+        <li>
+          <a href="https://gcbafinal-ecommerce.onrender.com/api/products?maxPrecio=500" target="_blank">
+            <code>GET</code> <code>/api/products?maxPrecio=500</code> — Precio máximo
           </a>
         </li>
         <li>
@@ -54,6 +59,27 @@
             <code>GET</code> <code>/api/products?orden=desc</code> — Ordenar por precio descendente
           </a>
         </li>
+      </ul>
+      <hr>
+      <h3>🔎 Probar filtros desde el navegador</h3>
+      <form id="filtros-form">
+        <label>Marca: <input type="text" name="marca" placeholder="Ej: Garmin" /></label>
+        <label>Descripción: <input type="text" name="desc" placeholder="Ej: deportivo" /></label>
+        <label>Modelo: <input type="text" name="modelo" placeholder="Ej: Forerunner" /></label>
+        <label>Precio mínimo: <input type="number" name="minPrecio" min="0" /></label>
+        <label>Precio máximo: <input type="number" name="maxPrecio" min="0" /></label>
+        <label>Orden:
+          <select name="orden">
+            <option value="">--</option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
+        </label>
+        <button type="submit">Buscar</button>
+        <button type="button" id="reset-filtros">Limpiar</button>
+      </form>
+      <ul id="productos-lista">
+        <li>Cargando productos...</li>
       </ul>
     </section>
 

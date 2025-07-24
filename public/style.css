@@ -1,0 +1,157 @@
+body {
+  background: #f6f8fa;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+.container {
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+
+h1 {
+  color: #2d7ff9;
+  font-size: 2.2rem;
+  margin-bottom: 0.5em;
+  letter-spacing: 1px;
+}
+
+h2, h3 {
+  color: #2d7ff9;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.base-url {
+  background: #eaf3ff;
+  border-left: 4px solid #2d7ff9;
+  padding: 0.7em 1em;
+  margin-bottom: 1.5em;
+  font-size: 1.1em;
+  border-radius: 6px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 0.7em;
+  background: #f3f6fa;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+  transition: background 0.2s;
+}
+
+ul li:hover {
+  background: #eaf3ff;
+}
+
+code {
+  background: #eaf3ff;
+  color: #2d7ff9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.98em;
+}
+
+a {
+  color: #2d7ff9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+form#filtros-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em 2em;
+  margin-bottom: 1.5em;
+  align-items: flex-end;
+}
+
+form#filtros-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1em;
+  color: #444;
+  margin-bottom: 0.5em;
+}
+
+form#filtros-form input,
+form#filtros-form select {
+  margin-top: 0.3em;
+  padding: 0.4em 0.7em;
+  border: 1px solid #b3c6e0;
+  border-radius: 4px;
+  font-size: 1em;
+  background: #f6f8fa;
+  transition: border 0.2s;
+}
+
+form#filtros-form input:focus,
+form#filtros-form select:focus {
+  border: 1.5px solid #2d7ff9;
+  outline: none;
+}
+
+form#filtros-form button {
+  background: #2d7ff9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  margin-right: 0.5em;
+  margin-top: 0.3em;
+  transition: background 0.2s;
+}
+
+form#filtros-form button:hover {
+  background: #1a5fc2;
+}
+
+.alerta {
+  background: #fffbe6;
+  border-left: 4px solid #ffd700;
+  padding: 1em 1.2em;
+  border-radius: 6px;
+  margin-top: 2em;
+  color: #7a5c00;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.2rem 0.5rem;
+  }
+  form#filtros-form {
+    flex-direction: column;
+    gap: 0.5em 0;
+  }
+}
+
+#productos-lista {
+  margin-top: 1.5em;
+}
+
+#productos-lista li {
+  background: #f6f8fa;
+  border: 1px solid #eaf3ff;
+  border-radius: 6px;
+  margin-bottom: 0.7em;
+  padding: 1em 1.2em;
+  font-size: 1.08em;
+  color: #222;
+  box-shadow: 0 1px 4px rgba(45,127,249,0.03);
+}
