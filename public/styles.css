@@ -1,0 +1,28 @@
+
+:root {
+  --color-primario: #1e90ff;
+  --color-fondo: #f4f4f4;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--color-fondo);
+  margin: 0;
+  padding: 2rem;
+}
+
+h1 {
+  color: var(--color-primario);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-left: 4px solid var(--color-primario);
+}

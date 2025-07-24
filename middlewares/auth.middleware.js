@@ -1,8 +1,7 @@
-// middlewares/auth.middleware.js
-import jwt from 'jsonwebtoken';
+import admin from 'firebase-admin';
 import { error } from '../services/responder.js';
 
-export const verificarToken = (req, res, next) => {
+export const verificarToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -12,10 +11,10 @@ export const verificarToken = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.usuario = decoded;
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    req.usuario = decodedToken; // contiene uid, etc.
     next();
   } catch (err) {
-    return error(res, null, 'Token inválido o expirado', 403);
+    return error(res, err.message, 'Token de Firebase inválido o expirado', 403);
   }
 };

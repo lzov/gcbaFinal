@@ -3,7 +3,7 @@ import { exito, error } from '../services/responder.js';
 
 export const getAll = async (req, res) => {
   try {
-    const productos = await ProductService.getAll();
+    const productos = await ProductService.getAll(req.query);
     console.log('Productos en controller:', productos);
     exito(res, productos, 'Productos obtenidos');
   } catch (err) {

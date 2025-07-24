@@ -15,4 +15,4 @@ admin.initializeApp({
 const db = admin.firestore();
 
 export { db };
-export const productsCollection = db.collection('productos');  // <-- acá productos
+export const productsCollection = db.collection('productos'); 

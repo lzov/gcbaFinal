@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import { error as responderError } from './services/responder.js';
 import productsRouter from './routes/products.routes.js';
 import authRouter from './routes/auth.routes.js';
@@ -6,6 +7,7 @@ import authRouter from './routes/auth.routes.js';
 const app = express();
 
 app.use(express.json());
+
 
 // Logger simple
 app.use((req, res, next) => {

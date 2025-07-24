@@ -1,17 +1,13 @@
-import express from 'express';
-import * as controller from '../controllers/products.controller.js';
-import validarProducto from '../services/validarProducto.js';
+import { Router } from 'express';
+import * as ProductosController from '../controllers/productos.controller.js';
 import { verificarToken } from '../middlewares/auth.middleware.js';
 
-const router = express.Router();
+const router = Router();
 
-// Rutas públicas
-router.get('/', controller.getAll);
-router.get('/:id', controller.getById);
-
-// Rutas protegidas (requieren token válido)
-router.post('/', verificarToken, validarProducto, controller.create);
-router.put('/:id', verificarToken, validarProducto, controller.update);
-router.delete('/:id', verificarToken, controller.remove);
+router.get('/', ProductosController.getAll);
+router.get('/:id', ProductosController.getById);
+router.post('/', verificarToken, ProductosController.create);
+router.put('/:id', verificarToken, ProductosController.update);
+router.delete('/:id', verificarToken, ProductosController.remove);
 
 export default router;
