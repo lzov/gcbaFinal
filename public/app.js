@@ -3,14 +3,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const res = await fetch('https://gcbafinal-ecommerce.onrender.com/api/products', {
-      headers: {
-        'Accept': 'application/json',
-      },
+      headers: { 'Accept': 'application/json' },
     });
 
-    if (!res.ok) {
-      throw new Error(`Error HTTP: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
 
     const json = await res.json();
 
@@ -25,10 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     json.datos.forEach(p => {
       const li = document.createElement('li');
-      li.textContent = `${p.nombre} - $${p.precio}`;
+      li.textContent = `${p.Desc} - SKU: ${p.sku}`;
       lista.appendChild(li);
     });
-
   } catch (err) {
     console.error(err);
     lista.innerHTML = `<li>Error: ${err.message}</li>`;
