@@ -3,14 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mis Productos</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>📘 API RESTful de Productos</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main>
-    <h1>Listado de Productos</h1>
-    <ul id="productos-lista"></ul>
-  </main>
-  <script src="app.js"></script>
+  <div class="container">
+    <h1>📘 API RESTful de Productos</h1>
+    <p>Bienvenido a la documentación inicial de esta API. Abajo encontrarás rutas útiles para probarla.</p>
+
+    <div class="base-url">
+      <strong>Base URL:</strong> 
+      <code>https://gcbafinal-ecommerce.onrender.com</code>
+    </div>
+
+    <section>
+      <h2>🔗 Endpoints públicos</h2>
+      <ul>
+        <li><code>GET</code> <code>/api/products</code> — Listar todos los productos</li>
+        <li><code>GET</code> <code>/api/products?nombre=Reloj</code> — Buscar por nombre</li>
+        <li><code>GET</code> <code>/api/products?categoria=Deportivo</code> — Filtrar por categoría</li>
+        <li><code>GET</code> <code>/api/products?minPrecio=5000</code> — Precio mínimo</li>
+        <li><code>GET</code> <code>/api/products?maxPrecio=20000</code> — Precio máximo</li>
+        <li><code>GET</code> <code>/api/products?orden=asc</code> — Ordenar por precio ascendente</li>
+        <li><code>GET</code> <code>/api/products?orden=desc</code> — Ordenar por precio descendente</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🔐 Autenticación</h2>
+      <ul>
+        <li><code>POST</code> <code>/api/auth/login</code></li>
+        <li><code>POST</code> <code>/api/auth/register</code></li>
+        <li><code>GET</code> <code>/api/auth/profile</code> <em>(requiere token)</em></li>
+      </ul>
+    </section>
+
+    <section class="alerta">
+      <h2>⚠️ Reglas importantes</h2>
+      <ul>
+        <li>No usar <code>?q</code> junto con filtros de precio.</li>
+        <li>Se priorizan los filtros de precio sobre otros parámetros.</li>
+      </ul>
+    </section>
+  </div>
 </body>
 </html>

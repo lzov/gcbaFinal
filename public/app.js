@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       headers: { 'Accept': 'application/json' },
     });
 
-    if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
 
     const json = await res.json();
 
     if (json.status !== 'success' || !Array.isArray(json.datos)) {
-      throw new Error('Formato inesperado de la respuesta');
+      throw new Error('Formato inesperado de API');
     }
 
     if (json.datos.length === 0) {
@@ -19,13 +21,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    lista.innerHTML = ''; // limpiar estado de carga
+
     json.datos.forEach(p => {
       const li = document.createElement('li');
-      li.textContent = `${p.Desc} - SKU: ${p.sku}`;
+      li.innerHTML = `
+        <strong>${p.Desc}</strong><br>
+        SKU: ${p.sku} — Precio: $${p.Precio}
+      `;
       lista.appendChild(li);
     });
+
   } catch (err) {
     console.error(err);
-    lista.innerHTML = `<li>Error: ${err.message}</li>`;
+    lista.innerHTML = `<li style="color: red;">Error: ${err.message}</li>`;
   }
 });
