@@ -1,30 +1,38 @@
 import { productsCollection } from '../config/firebase.js';
 
 // Obtener todos los productos, con filtros opcionales
-export const getAll = async ({ min, max, orden, nombre }) => {
+export const getAll = async (query = {}) => {
   const snapshot = await productsCollection.get();
   let productos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  if (nombre) {
+  // Filtros por campos reales
+  if (query.desc) {
     productos = productos.filter(p =>
-      p.nombre?.toLowerCase().includes(nombre.toLowerCase())
+      typeof p.Desc === 'string' && p.Desc.toLowerCase().includes(query.desc.toLowerCase())
     );
   }
-
-  if (!isNaN(min)) {
-    productos = productos.filter(p => p.precio >= Number(min));
+  if (query.marca) {
+    productos = productos.filter(p =>
+      typeof p.Marca === 'string' && p.Marca.toLowerCase() === query.marca.toLowerCase()
+    );
   }
-
-  if (!isNaN(max)) {
-    productos = productos.filter(p => p.precio <= Number(max));
+  if (query.modelo) {
+    productos = productos.filter(p =>
+      typeof p.Modelo === 'string' && p.Modelo.toLowerCase() === query.modelo.toLowerCase()
+    );
   }
-
-  if (orden === 'asc') {
-    productos.sort((a, b) => a.precio - b.precio);
-  } else if (orden === 'desc') {
-    productos.sort((a, b) => b.precio - a.precio);
+  if (query.minPrecio) {
+    productos = productos.filter(p => Number(p.Precio) >= Number(query.minPrecio));
   }
-
+  if (query.maxPrecio) {
+    productos = productos.filter(p => Number(p.Precio) <= Number(query.maxPrecio));
+  }
+  if (query.orden === 'asc') {
+    productos = productos.sort((a, b) => a.Precio - b.Precio);
+  }
+  if (query.orden === 'desc') {
+    productos = productos.sort((a, b) => b.Precio - a.Precio);
+  }
   return productos;
 };
 
