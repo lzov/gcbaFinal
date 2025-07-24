@@ -13,10 +13,10 @@ export const firebaseConfig = (() => {
     'FIREBASE_CLIENT_CERT_URL',
   ];
 
-  for (const v of requiredVars) {
-    if (!process.env[v]) {
-      throw new Error(`La variable de entorno ${v} no está definida`);
-    }
+  const missingVars = requiredVars.filter(v => !process.env[v]);
+  if (missingVars.length) {
+    console.error('Faltan variables de entorno:', missingVars.join(', '));
+    throw new Error(`Faltan variables de entorno: ${missingVars.join(', ')}`);
   }
 
   return {
