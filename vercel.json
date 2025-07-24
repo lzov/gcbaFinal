@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://gcbafinal-ecommerce.onrender.com/api/$1"
+    }
+  ]
+}
