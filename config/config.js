@@ -9,13 +9,12 @@ export const firebaseConfig = (() => {
     'FIREBASE_CLIENT_ID',
     'FIREBASE_AUTH_URI',
     'FIREBASE_TOKEN_URI',
-    'FIREBASE_AUTH_PROVIDER_CERT_URL',
-    'FIREBASE_CLIENT_CERT_URL',
+    'FIREBASE_AUTH_PROVIDER_X509_CERT_URL',  // <-- corregido
+    'FIREBASE_CLIENT_X509_CERT_URL',         // <-- corregido
   ];
 
   const missingVars = requiredVars.filter(v => !process.env[v]);
   if (missingVars.length) {
-    console.error('Faltan variables de entorno:', missingVars.join(', '));
     throw new Error(`Faltan variables de entorno: ${missingVars.join(', ')}`);
   }
 
@@ -28,7 +27,7 @@ export const firebaseConfig = (() => {
     client_id: process.env.FIREBASE_CLIENT_ID,
     auth_uri: process.env.FIREBASE_AUTH_URI,
     token_uri: process.env.FIREBASE_TOKEN_URI,
-    auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_CERT_URL,
-    client_x509_cert_url: process.env.FIREBASE_CLIENT_CERT_URL,
+    auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,  // corregido
+    client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,               // corregido
   };
 })();
