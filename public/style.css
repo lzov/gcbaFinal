@@ -72,72 +72,19 @@ a:hover {
   text-decoration: underline;
 }
 
-form#filtros-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em 2em;
-  margin-bottom: 1.5em;
-  align-items: flex-end;
-}
-
-form#filtros-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 1em;
-  color: #444;
-  margin-bottom: 0.5em;
-}
-
-form#filtros-form input,
-form#filtros-form select {
-  margin-top: 0.3em;
-  padding: 0.4em 0.7em;
-  border: 1px solid #b3c6e0;
-  border-radius: 4px;
-  font-size: 1em;
-  background: #f6f8fa;
-  transition: border 0.2s;
-}
-
-form#filtros-form input:focus,
-form#filtros-form select:focus {
-  border: 1.5px solid #2d7ff9;
-  outline: none;
-}
-
-form#filtros-form button {
-  background: #2d7ff9;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5em 1.2em;
-  font-size: 1em;
-  cursor: pointer;
-  margin-right: 0.5em;
-  margin-top: 0.3em;
-  transition: background 0.2s;
-}
-
-form#filtros-form button:hover {
-  background: #1a5fc2;
-}
 
 .alerta {
   background: #fffbe6;
   border-left: 4px solid #ffd700;
   padding: 1em 1.2em;
   border-radius: 6px;
-  margin-top: 2em;
+  margin-top: 1em;
   color: #7a5c00;
 }
 
 @media (max-width: 600px) {
   .container {
     padding: 1.2rem 0.5rem;
-  }
-  form#filtros-form {
-    flex-direction: column;
-    gap: 0.5em 0;
   }
 }
 
