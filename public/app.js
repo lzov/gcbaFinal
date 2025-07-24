@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const lista = document.getElementById('productos-lista');
 
   try {
-    const res = await fetch('https://TU_BACKEND.vercel.app/api/productos');
+    const res = await fetch('https://gcbafinal-ecommerce.onrender.com/api/products');
     const json = await res.json();
 
     if (json.status !== 'success') throw new Error('Error al cargar productos');
